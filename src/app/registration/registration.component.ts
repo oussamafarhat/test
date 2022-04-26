@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 import { User } from '../models/user.model';
+import { RouterService } from '../services/router.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -14,8 +15,8 @@ export class RegistrationComponent implements OnInit {
   users:User[]=[];
   isValidFormSubmitted:boolean;
   emailPattern = "^[a-z0-8]+@[a-z3-9]+\.[a-z]{2,3}$";
-  passwordPatten="((?=.*[a-z])(?=.*d)(?=.*[A-Z]).{6,16})";
-  constructor(private formbuilder:FormBuilder,private service:UserService) {
+  passwordPatten="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$";
+  constructor(private formbuilder:FormBuilder,private service:UserService,private routeservice:RouterService) {
     this.isValidFormSubmitted=false;
     this.form=this.formbuilder.group({
       email:['',[Validators.required,Validators.pattern(this.emailPattern)]],
@@ -32,7 +33,12 @@ export class RegistrationComponent implements OnInit {
     this.isValidFormSubmitted = true;
     let user = this.form.value;
     this.service.register(user).pipe(first())
-    .subscribe(elem=>{})
+    .subscribe(elem=>{
+      console.log(user.email,user.password);
+      this.routeservice.navigateToLogin();
+    },error=>{
+        console.log("Failed to register!")
+       })
     this.form.reset();
  }
  get email() {

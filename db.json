@@ -4,19 +4,22 @@
         "userId": 101,
         "firstName": "john",
         "lastName": "smith",
-        "email": "john.smith@gmail.com"
+        "email": "john.smith@gmail.com",
+        "password":"Password1234"
       },
       {
         "userId": 102,
         "firstName": "connor",
         "lastName": "smith",
-        "email": "connor.smith@gmail.com"
+        "email": "connor.smith@gmail.com",
+        "password":"Password1234"
       },
       {
         "userId": 103,
         "firstName": "james",
         "lastName": "smith",
-        "email": "james.smith@gmail.com"
+        "email": "james.smith@gmail.com",
+        "password":"Password1234"
       }
     ]
       

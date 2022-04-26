@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
+import { RouterService } from '../services/router.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { UserService } from '../services/user.service';
 })
 export class UsersManagementComponent implements OnInit {
   users:User[]=[]
-  constructor(private service:UserService) { }
+  constructor(private service:UserService,private routeservice:RouterService) { }
 
   ngOnInit(): void {
     this.service.getUsers().subscribe((elem)=>{
@@ -17,5 +18,16 @@ export class UsersManagementComponent implements OnInit {
       console.log(this.users);
     } )
   }
+  logout(){
+    this.service.clearToken();
+    this.routeservice.navigateToLogin();
+  }
+  goToUserDetails(id:any){
+    this.routeservice.navigateToUserDetails(id);
+  }
+  goToAddUser(){
+    this.routeservice.navigateToAddUser();
+  }
+
 
 }

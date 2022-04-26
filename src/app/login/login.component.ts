@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm;
   emailPattern = "[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}";
   isValidFormSubmitted:boolean
-  users:User[]=[];
+ 
 
  errorMessage:string;
   constructor(private service:UserService,private routeservice:RouterService,private formbuilder:FormBuilder) {
@@ -31,17 +31,21 @@ login(){
     return;
  }
  this.isValidFormSubmitted = true;
-  let user = {username:this.loginForm.value.email.value,password:this.loginForm.value.email.value};
+  let user = {email:this.loginForm.value.email.value,password:this.loginForm.value.password.value};
   this.service.authenticateUser(user).subscribe((response)=>{
+   
     let token = response['token'];
     this.service.setToken(token);
-    
+    this.routeservice.navigateToUserManagement();
    
   },(error)=>{
     console.log(error);
     if(error.status == 403){
       this.errorMessage = error.error.message;
     }
+    else if (error.status === 404) {
+      this.errorMessage = error.message;
+}
   })
 }
  get email() {

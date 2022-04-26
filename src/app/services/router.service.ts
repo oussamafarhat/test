@@ -13,10 +13,13 @@ export class RouterService {
   navigateToRegistration(){
     this.router.navigate(['register']);
   }
-  navigateToUserDetails(){
-    this.router.navigate(['user','details']);
+  navigateToUserDetails(id:any){
+    this.router.navigate(['user','details',id]);
   }
   navigateToUserManagement(){
     this.router.navigate(['users']);
+  }
+  navigateToAddUser(){
+    this.router.navigate(['add','user']);
   }
 }

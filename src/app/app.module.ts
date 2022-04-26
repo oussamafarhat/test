@@ -9,11 +9,15 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UsersManagementComponent } from './users-management/users-management.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ActivateUsersManagementGuard } from './activate-users-management.guard';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   {path:'register',component:RegistrationComponent},
   {path:'login',component:LoginComponent}, 
-  {path: 'user/details', component:UserDetailsComponent},
+  // ,canActivate:[ActivateUsersManagementGuard]
+  {path: 'user/details/:id', component:UserDetailsComponent},
+  {path: 'add/user', component:AddUserComponent},
   {path: 'users',component:UsersManagementComponent},
    
   {path:'',redirectTo:'login',pathMatch:"full"}
@@ -24,7 +28,8 @@ const routes: Routes = [
     LoginComponent,
     RegistrationComponent,
     UserDetailsComponent,
-         UsersManagementComponent
+    UsersManagementComponent,
+    AddUserComponent
          
   ],
   imports: [
